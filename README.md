@@ -3,14 +3,14 @@
 
 ## 
 
-- (Connect)[#Connect]
-- (ZeroPosition)[#ZeroPosition]
-- (MeasurePosition)[#MeasurePosition]
-- (MoveRel)[#MoveRel]
-- (Status)[#Status]
-- (MoveRel)[#Reset]
-- (StepAmplitudePos)[#StepAmplitudePos]
-- (StepAmplitudeNeg)[#StepAmplitudeNeg]
+- [Connect](#Connect)
+- [ZeroPosition](#ZeroPosition)
+- [MeasurePosition](#MeasurePosition)
+- [MoveRel](#MoveRel)
+- [Status](#Status)
+- [MoveRel](#Reset)
+- [StepAmplitudePos](#StepAmplitudePos)
+- [StepAmplitudeNeg](#StepAmplitudeNeg)
 
 ### Connect
 
