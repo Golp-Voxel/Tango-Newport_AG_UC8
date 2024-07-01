@@ -66,7 +66,7 @@ class AG_UC8(Device):
 
         self.AG_UC8_Divece[AG_UC8["Name"]] = ctl
 
-        return self.AG_UC8_Divece[AG_UC8["Name"]].get_id()
+        return self.AG_UC8_Divece[AG_UC8["Name"]].get_idn()
     
     '''
         userinfoZP =   {
@@ -185,7 +185,7 @@ class AG_UC8(Device):
         if helper == -1:
             return "Axis not correct"
         else:
-           return " Amplitude Pos was set to: "+str(helper.step_amplitude_pos())
+           return str(helper.step_amplitude_pos())
         
 
     '''
@@ -203,7 +203,25 @@ class AG_UC8(Device):
         if helper == -1:
             return "Axis not correct"
         else:
-           return " Amplitude Neg was set to: "+str(helper.step_amplitude_neg())
+           return str(helper.step_amplitude_neg())
+
+
+    '''
+        userinfoSteps =   {
+                            "Name"      : <user_name_given_on Connect>,
+                            "Channel"   : 0 to 3,
+                            "Axis"      : 1 or 2
+                        }
+    '''   
+    
+    @command(dtype_in=str,dtype_out=str)  
+    def Steps(self,userinfoSteps):
+        userinfoSteps =  json.loads(userinfoSteps)
+        helper =  self.check_channel_and_axies(userinfoSteps)
+        if helper == -1:
+            return "Axis not correct"
+        else:
+           return str(helper.steps())
 
         
 if __name__ == "__main__":
