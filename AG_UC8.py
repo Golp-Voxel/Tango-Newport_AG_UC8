@@ -1,10 +1,4 @@
 '''
-Cameras: 
-    Set-up gain                                             Done
-    Set-up the exposure time                                Done
-    Acquire a frame                                         Done
-    Set binning                                             ????
-    Set ROI                                                 Done
 
 
 '''
@@ -62,11 +56,13 @@ class AG_UC8(Device):
     @command(dtype_in=str,dtype_out=str)  
     def Connect(self,AG_UC8):
         AG_UC8 =  json.loads(AG_UC8)
+        print(AG_UC8)
         ctl = Newport_AG_UC8("Newport","ASRL"+str(AG_UC8["COM"]))
+        
+        print(self.AG_UC8_Device)
+        self.AG_UC8_Device[AG_UC8["Name"]] = ctl
 
-        self.AG_UC8_Divece[AG_UC8["Name"]] = ctl
-
-        return self.AG_UC8_Divece[AG_UC8["Name"]].get_idn()
+        return str(self.AG_UC8_Device[AG_UC8["Name"]].get_idn())
     
     '''
         userinfoZP =   {
@@ -78,16 +74,18 @@ class AG_UC8(Device):
 
     def check_channel_and_axies(self,userinfo):
         if userinfo["Axis"] == 1:
-            return self.AG_UC8_Divece[userinfo["Name"]].channels[userinfo["Channel"]].axis1
+            return self.AG_UC8_Device[userinfo["Name"]].channels[userinfo["Channel"]].axis1
         elif  userinfo["Axis"] == 2:
-            return self.AG_UC8_Divece[userinfo["Name"]].channels[userinfo["Channel"]].axis2
+            return self.AG_UC8_Device[userinfo["Name"]].channels[userinfo["Channel"]].axis2
         else:
             return -1
 
 
     @command(dtype_in=str,dtype_out=str)  
     def ZeroPosition(self,userinfoZP):
+        print("ZeroPosition")
         userinfoZP =  json.loads(userinfoZP)
+        print(userinfoZP)
         helper =  self.check_channel_and_axies(userinfoZP)
         if helper == -1:
             return "Axis not correct"
@@ -147,12 +145,15 @@ class AG_UC8(Device):
 
 
     @command(dtype_in=str,dtype_out=str)  
-    def Status(self,userinfoS):
+    def StatusMotor(self,userinfoS):
+        print("StatusMotor")
         userinfoS =  json.loads(userinfoS)
+        print(userinfoS)
         helper =  self.check_channel_and_axies(userinfoS)
         if helper == -1:
             return "Axis not correct"
         else:
+           print(helper.status())
            return " Status: "+str(helper.status())
     
 
@@ -164,7 +165,8 @@ class AG_UC8(Device):
 
     @command(dtype_in=str,dtype_out=str)  
     def Reset(self,userinfoR):
-        self.AG_UC8_Divece[userinfoR["Name"]].reset()
+        userinfoR =  json.loads(userinfoR)
+        self.AG_UC8_Device[userinfoR["Name"]].reset()
         return "The controller was reseted"
         
     
@@ -216,7 +218,9 @@ class AG_UC8(Device):
     
     @command(dtype_in=str,dtype_out=str)  
     def Steps(self,userinfoSteps):
+        print("Steps")
         userinfoSteps =  json.loads(userinfoSteps)
+        print(userinfoSteps)
         helper =  self.check_channel_and_axies(userinfoSteps)
         if helper == -1:
             return "Axis not correct"
