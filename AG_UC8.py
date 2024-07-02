@@ -58,13 +58,7 @@ class AG_UC8(Device):
 
         return str(self.AG_UC8_Device[AG_UC8["Name"]].get_idn())
     
-    '''
-        userinfoZP =   {
-                            "Name"      : <user_name_given_on Connect>,
-                            "Channel"   : 0 to 3,
-                            "Axis"      : 1 or 2
-                        }
-    '''
+
 
     def check_channel_and_axies(self,userinfo):
         if userinfo["Axis"] == 1:
@@ -73,6 +67,15 @@ class AG_UC8(Device):
             return self.AG_UC8_Device[userinfo["Name"]].channels[userinfo["Channel"]].axis2
         else:
             return -1
+        
+        
+    '''
+        userinfoZP =   {
+                            "Name"      : <user_name_given_on Connect>,
+                            "Channel"   : 0 to 3,
+                            "Axis"      : 1 or 2
+                        }
+    '''
 
 
     @command(dtype_in=str,dtype_out=str)  
