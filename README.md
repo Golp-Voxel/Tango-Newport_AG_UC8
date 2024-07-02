@@ -7,7 +7,7 @@
 - [ZeroPosition](#ZeroPosition)
 - [MeasurePosition](#MeasurePosition)
 - [MoveRel](#MoveRel)
-- [Status](#Status)
+- [StatusMotor](#StatusMotor)
 - [MoveRel](#Reset)
 - [StepAmplitudePos](#StepAmplitudePos)
 - [StepAmplitudeNeg](#StepAmplitudeNeg)
@@ -149,6 +149,8 @@ import json
 N_AG_UC8 = tango.DeviceProxy(<Thorlabs_Tango_location_on_the_database>)
 print(N_AG_UC8.state())
 
+
+# you need to check the SerialCOM of the device
 AG_UC8 = {
             "Name"      : "Controller_1",
             "COM"       : 0
@@ -182,7 +184,7 @@ Move_info = json.dumps(Move_info)
 
 N_AG_UC8.MoveRel(Move_info)
 
-print(N_AG_UC8.Status(Controller_info))
+print(N_AG_UC8.StatusMotor(Controller_info))
 print(N_AG_UC8.Steps(Controller_info))
 
 ```

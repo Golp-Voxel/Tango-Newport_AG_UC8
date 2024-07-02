@@ -1,5 +1,9 @@
 '''
-
+    This Tango Class device server is for the NewPort AG_UC8 Controller
+    
+    It uses the qcodes_contrib_drivers basics functions
+    
+    https://qcodes.github.io/Qcodes_contrib_drivers/examples/Newport_AG-UC8.html
 
 '''
 
@@ -13,16 +17,6 @@ import tango
 from tango import AttrQuality, AttrWriteType, DevState, DispLevel, AttReqType, Database
 from tango.server import Device, attribute, command
 from tango.server import class_property, device_property
-
-
-# # _____________ Check if this is need to work _____________
-# db = Database()
-# try:
-#    prop = db.get_property('ORBendPoint', 'Pool/' + instance_name)
-#    orb_end_point = prop['Pool/' + instance_name][0]
-#    os.environ["ORBendPoint"] = orb_end_point
-# except:
-#    pass
 
 
 
