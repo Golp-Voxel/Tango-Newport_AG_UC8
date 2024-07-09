@@ -1,5 +1,9 @@
 '''
-
+    This Tango Class device server is for the NewPort AG_UC8 Controller
+    
+    It uses the qcodes_contrib_drivers basics functions
+    
+    https://qcodes.github.io/Qcodes_contrib_drivers/examples/Newport_AG-UC8.html
 
 '''
 
@@ -13,16 +17,6 @@ import tango
 from tango import AttrQuality, AttrWriteType, DevState, DispLevel, AttReqType, Database
 from tango.server import Device, attribute, command
 from tango.server import class_property, device_property
-
-
-# # _____________ Check if this is need to work _____________
-# db = Database()
-# try:
-#    prop = db.get_property('ORBendPoint', 'Pool/' + instance_name)
-#    orb_end_point = prop['Pool/' + instance_name][0]
-#    os.environ["ORBendPoint"] = orb_end_point
-# except:
-#    pass
 
 
 
@@ -64,13 +58,7 @@ class AG_UC8(Device):
 
         return str(self.AG_UC8_Device[AG_UC8["Name"]].get_idn())
     
-    '''
-        userinfoZP =   {
-                            "Name"      : <user_name_given_on Connect>,
-                            "Channel"   : 0 to 3,
-                            "Axis"      : 1 or 2
-                        }
-    '''
+
 
     def check_channel_and_axies(self,userinfo):
         if userinfo["Axis"] == 1:
@@ -79,6 +67,15 @@ class AG_UC8(Device):
             return self.AG_UC8_Device[userinfo["Name"]].channels[userinfo["Channel"]].axis2
         else:
             return -1
+        
+        
+    '''
+        userinfoZP =   {
+                            "Name"      : <user_name_given_on Connect>,
+                            "Channel"   : 0 to 3,
+                            "Axis"      : 1 or 2
+                        }
+    '''
 
 
     @command(dtype_in=str,dtype_out=str)  

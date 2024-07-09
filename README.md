@@ -1,5 +1,23 @@
 # Tango-Newport_AG_UC8
+This repository contains the driver for controlling a Newport AG_UC8 Controller with the Tango Control. After cloning this repository with the following command
 
+```
+git clone https://github.com/Golp-Voxel/Tango-Newport_SMC100.git
+```
+
+It is necessary to create the `tango-env` using the following command:
+
+```
+python -m venv tango-env
+```
+
+After activating it you can install all the models to run this tool by using the command:
+
+```
+pip install -r Requirements.txt
+```
+
+To complete the installation, it is necessary to copy the `AG_UC8.bat` template and change the paths to the installation folder. And the command to run the `tango-env\Scripts\activate` script. 
 
 ## Available commands
 
@@ -7,7 +25,7 @@
 - [ZeroPosition](#ZeroPosition)
 - [MeasurePosition](#MeasurePosition)
 - [MoveRel](#MoveRel)
-- [Status](#Status)
+- [StatusMotor](#StatusMotor)
 - [MoveRel](#Reset)
 - [StepAmplitudePos](#StepAmplitudePos)
 - [StepAmplitudeNeg](#StepAmplitudeNeg)
@@ -149,6 +167,8 @@ import json
 N_AG_UC8 = tango.DeviceProxy(<Thorlabs_Tango_location_on_the_database>)
 print(N_AG_UC8.state())
 
+
+# you need to check the SerialCOM of the device
 AG_UC8 = {
             "Name"      : "Controller_1",
             "COM"       : 0
@@ -182,7 +202,7 @@ Move_info = json.dumps(Move_info)
 
 N_AG_UC8.MoveRel(Move_info)
 
-print(N_AG_UC8.Status(Controller_info))
+print(N_AG_UC8.StatusMotor(Controller_info))
 print(N_AG_UC8.Steps(Controller_info))
 
 ```
