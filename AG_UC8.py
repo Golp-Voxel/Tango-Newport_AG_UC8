@@ -62,9 +62,9 @@ class AG_UC8(Device):
 
     def check_channel_and_axies(self,userinfo):
         if userinfo["Axis"] == 1:
-            return self.AG_UC8_Device[userinfo["Name"]].channels[userinfo["Channel"]].axis1
+            return self.AG_UC8_Device[userinfo["Name"]].channels[userinfo["Channel"]-1].axis1
         elif  userinfo["Axis"] == 2:
-            return self.AG_UC8_Device[userinfo["Name"]].channels[userinfo["Channel"]].axis2
+            return self.AG_UC8_Device[userinfo["Name"]].channels[userinfo["Channel"]-1].axis2
         else:
             return -1
         
@@ -72,7 +72,7 @@ class AG_UC8(Device):
     '''
         userinfoZP =   {
                             "Name"      : <user_name_given_on Connect>,
-                            "Channel"   : 0 to 3,
+                            "Channel"   : 1 to 4,
                             "Axis"      : 1 or 2
                         }
     '''
@@ -96,7 +96,7 @@ class AG_UC8(Device):
     '''
         userinfoMP =   {
                             "Name"      : <user_name_given_on Connect>,
-                            "Channel"   : 0 to 3,
+                            "Channel"   : 1 to 4,
                             "Axis"      : 1 or 2
                         }
     '''       
@@ -116,7 +116,7 @@ class AG_UC8(Device):
     '''
         userinfoMR =   {
                             "Name"      : <user_name_given_on Connect>,
-                            "Channel"   : 0 to 3,
+                            "Channel"   : 1 to 4,
                             "Axis"      : 1 or 2,
                             "Position"  : 0 to 500
                         }
@@ -135,7 +135,7 @@ class AG_UC8(Device):
     '''
         userinfoS =   {
                             "Name"      : <user_name_given_on Connect>,
-                            "Channel"   : 0 to 3,
+                            "Channel"   : 1 to 4,
                             "Axis"      : 1 or 2
                         }
     '''   
@@ -172,7 +172,7 @@ class AG_UC8(Device):
     '''
         userinfoSAP =   {
                             "Name"      : <user_name_given_on Connect>,
-                            "Channel"   : 0 to 3,
+                            "Channel"   : 1 to 4,
                             "Axis"      : 1 or 2
                         }
     '''   
@@ -190,7 +190,7 @@ class AG_UC8(Device):
     '''
         userinfoSAN =   {
                             "Name"      : <user_name_given_on Connect>,
-                            "Channel"   : 0 to 3,
+                            "Channel"   : 1 to 4,
                             "Axis"      : 1 or 2
                         }
     '''   
@@ -208,7 +208,7 @@ class AG_UC8(Device):
     '''
         userinfoSteps =   {
                             "Name"      : <user_name_given_on Connect>,
-                            "Channel"   : 0 to 3,
+                            "Channel"   : 1 to 4,
                             "Axis"      : 1 or 2
                         }
     '''   
