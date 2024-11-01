@@ -55,8 +55,13 @@ class AG_UC8(Device):
         
         print(self.AG_UC8_Device)
         self.AG_UC8_Device[AG_UC8["Name"]] = ctl
-
-        return str(self.AG_UC8_Device[AG_UC8["Name"]].get_idn())
+        test = "ele"
+        try:
+            test = self.AG_UC8_Device[AG_UC8["Name"]].get_idn()
+        except:
+            test = "Error"
+        print (test)
+        return "ola"
     
 
 
@@ -151,7 +156,7 @@ class AG_UC8(Device):
             return "Axis not correct"
         else:
            print(helper.status())
-           return " Status: "+str(helper.status())
+           return str(helper.status())
     
 
     '''
@@ -173,7 +178,8 @@ class AG_UC8(Device):
         userinfoSAP =   {
                             "Name"      : <user_name_given_on Connect>,
                             "Channel"   : 1 to 4,
-                            "Axis"      : 1 or 2
+                            "Axis"      : 1 or 2,
+                            "Amplitude" : -50 to 50
                         }
     '''   
 
@@ -184,14 +190,17 @@ class AG_UC8(Device):
         if helper == -1:
             return "Axis not correct"
         else:
-           return str(helper.step_amplitude_pos())
+            if "Amplitude" in userinfoSAP.keys():
+                helper.step_amplitude_pos(int(userinfoSAP["Amplitude"]))
+            return str(helper.step_amplitude_pos())
         
 
     '''
         userinfoSAN =   {
                             "Name"      : <user_name_given_on Connect>,
                             "Channel"   : 1 to 4,
-                            "Axis"      : 1 or 2
+                            "Axis"      : 1 or 2,
+                            "Amplitude" : -50 to 50
                         }
     '''   
 
@@ -202,7 +211,9 @@ class AG_UC8(Device):
         if helper == -1:
             return "Axis not correct"
         else:
-           return str(helper.step_amplitude_neg())
+            if "Amplitude" in userinfoSAN.keys():
+                helper.step_amplitude_neg(int(userinfoSAN["Amplitude"]))
+            return str(helper.step_amplitude_neg())
 
 
     '''
