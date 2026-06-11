@@ -2,7 +2,7 @@
 This repository contains the driver for controlling a Newport AG_UC8 Controller with the Tango Control. After cloning this repository with the following command
 
 ```
-git clone https://github.com/Golp-Voxel/Tango-Newport_SMC100.git
+git clone https://github.com/Golp-Voxel/Tango-Newport_AG_UC8.git
 ```
 
 It is necessary to create the `tango-env` using the following command:
@@ -26,9 +26,10 @@ To complete the installation, it is necessary to copy the `AG_UC8.bat` template 
 - [MeasurePosition](#MeasurePosition)
 - [MoveRel](#MoveRel)
 - [StatusMotor](#StatusMotor)
-- [MoveRel](#Reset)
+- [Reset](#Reset)
 - [StepAmplitudePos](#StepAmplitudePos)
 - [StepAmplitudeNeg](#StepAmplitudeNeg)
+- [Steps](#Steps)
 
 ### Connect
 
@@ -52,7 +53,7 @@ ZeroPosition(userinfoZP)
 ```
 userinfoZP = {
                 "Name"      : <user_name_given_on Connect>,
-                "Channel"   : 0 to 3,
+                "Channel"   : 1 to 4,
                 "Axis"      : 1 or 2
             }
 ```
@@ -60,14 +61,16 @@ userinfoZP = {
 
 ### MeasurePosition
 
+Measures the position of the given axis. The position is returned as a number from 0 to 1000 corresponding to the full travel range of the mount.
+
 ```python
 MeasurePosition(userinfoMP)
 ```
 
 ```
-userinfo = {
+userinfoMP = {
                 "Name"      : <user_name_given_on Connect>,
-                "Channel"   : 0 to 3,
+                "Channel"   : 1 to 4,
                 "Axis"      : 1 or 2
             }
 ```
@@ -82,23 +85,23 @@ MoveRel(userinfoMR)
 ```
 userinfoMR = {
                 "Name"      : <user_name_given_on Connect>,
-                "Channel"   : 0 to 3,
+                "Channel"   : 1 to 4,
                 "Axis"      : 1 or 2,
                 "Position"  : 0 to 500
             }
 ```
 
 
-### Status
+### StatusMotor
 
 ```python
-Status(userinfoS)
+StatusMotor(userinfoS)
 ```
 
 ```
 userinfoS =    {
                     "Name"      : <user_name_given_on Connect>,
-                    "Channel"   : 0 to 3,
+                    "Channel"   : 1 to 4,
                     "Axis"      : 1 or 2
                 }
 ```
@@ -117,6 +120,8 @@ userinfoR =  {
 
 ### StepAmplitudePos
 
+Returns the step amplitude in the positive direction. If the optional `"Amplitude"` field is given, it is set before being read back.
+
 ```python
 StepAmplitudePos(userinfoSAP)
 ```
@@ -124,12 +129,15 @@ StepAmplitudePos(userinfoSAP)
 ```
 userinfoSAP =  {
                     "Name"      : <user_name_given_on Connect>,
-                    "Channel"   : 0 to 3,
-                    "Axis"      : 1 or 2
+                    "Channel"   : 1 to 4,
+                    "Axis"      : 1 or 2,
+                    "Amplitude" : -50 to 50 (optional)
                 }
 ```
 
 ### StepAmplitudeNeg
+
+Returns the step amplitude in the negative direction. If the optional `"Amplitude"` field is given, it is set before being read back.
 
 ```python
 StepAmplitudeNeg(userinfoSAN)
@@ -138,13 +146,16 @@ StepAmplitudeNeg(userinfoSAN)
 ```
 userinfoSAN =  {
                     "Name"      : <user_name_given_on Connect>,
-                    "Channel"   : 0 to 3,
-                    "Axis"      : 1 or 2
+                    "Channel"   : 1 to 4,
+                    "Axis"      : 1 or 2,
+                    "Amplitude" : -50 to 50 (optional)
                 }
 ```
 
 
 ### Steps
+
+Returns the accumulated number of steps of the given axis.
 
 ```python
 Steps(userinfoSteps)
@@ -153,7 +164,7 @@ Steps(userinfoSteps)
 ```
 userinfoSteps =  {
                     "Name"      : <user_name_given_on Connect>,
-                    "Channel"   : 0 to 3,
+                    "Channel"   : 1 to 4,
                     "Axis"      : 1 or 2
                 }
 ```
@@ -164,7 +175,7 @@ userinfoSteps =  {
 ```python
 import tango
 import json
-N_AG_UC8 = tango.DeviceProxy(<Thorlabs_Tango_location_on_the_database>)
+N_AG_UC8 = tango.DeviceProxy(<AG_UC8_Tango_location_on_the_database>)
 print(N_AG_UC8.state())
 
 
@@ -174,7 +185,7 @@ AG_UC8 = {
             "COM"       : 0
          }
 
-print(N_AG_UC8.Connect(AG_UC8))
+print(N_AG_UC8.Connect(json.dumps(AG_UC8)))
 
 Controller_info =  {
                         "Name"      : "Controller_1",
